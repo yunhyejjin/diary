@@ -48,14 +48,15 @@
 	int startRow = ((currentPage-1)*10); // 시작하는 행번호 ex)현재페이지가 1페이지면 0~9 >>0번, 2페이지면 10~19>>10번
 	
 	
-	String searchWord = " "; //searchWord는 null값이 들어갈 수 없다. 검색할 단어는 정해져 있으니까! --> 경우의 수을 하나 줄인 것 / 공백이 들어가면 while문이 없다(반복할 리스트가 없다)와 같다
+	String searchWord = ""; // 1.("") 2.(" ") 1번과 2번 차이점: 공백이 들어가면 while문이 없다(반복할 리스트가 없다)와 같다 >> 빈 리스트만 출력됨
+	//searchWord는 null값이 들어갈 수 없다.(null으로 title을 정하진 않으니까.) --> 경우의 수을 하나 줄인 것 
 	if(request.getParameter("searchWord") != null) { 
 		searchWord = request.getParameter("searchWord");
 	}
 	/*
 		SELECT diary_date diaryDate, title
 		FROM diary
-		WHERE title LIKE ?
+		WHERE title LIKE '(searchWord)? ' --> title에 'searchWord' 가 들어가는...
 		ORDER BY diary_date DESC
 		LIMIT ?, ?;
 	*/	
