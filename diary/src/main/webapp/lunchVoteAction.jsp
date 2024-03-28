@@ -28,38 +28,32 @@
 		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg); // get방식
 		return; // 코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return사용(진행이 필요없다 싶을 때)
 	}
+%>
+
+<%
+	//1. 입력값받기
 	
-	// 1.입렵값 받기
+	String lunchDate = request.getParameter("lunchDate");
+	String menu = request.getParameter("menu");
 	
-	String diaryDate = request.getParameter("diaryDate");
-	String feeling = request.getParameter("feeling");
-	String title = request.getParameter("title");
-	String weather = request.getParameter("weather");
-	String content = request.getParameter("content");
-	
-	System.out.println("diaryDate :  "  + diaryDate);
-	System.out.println("feeling :  "  + feeling);
-	System.out.println("title :  "  + title);
-	System.out.println("content : " + content);
-	System.out.println("weather : " + weather);
+	System.out.println("checkDate-lunchDate :  "  + lunchDate);
+	System.out.println("menu :  "  + menu);
 	
 	// 2. DB접속해서 입력값 입력한다.
-	/* INSERT INTO diary(
-	diary_date, title, weather, content, updatedate, createdate
-	) VALUES(?, ?, ?, NOW(), NOW())"
+	/* 
+		INSERT INTO lunch(
+		lunch_date, menu, update_date, create_date
+		) VALUES(?, ?, NOW(), NOW())"
 	*/
-	String addsql = "insert into diary(diary_date, feeling, title, weather, content, update_date, create_date) VALUES(?, ?, ?, ?, ?, NOW(), NOW())";
-	PreparedStatement stmt3 = null;
-	ResultSet rs3 = null; 
-	stmt3 = conn.prepareStatement(addsql); // 추가할 쿼리문 불러오기
-	stmt3.setString(1,diaryDate);
-	stmt3.setString(2,feeling);
-	stmt3.setString(3,title);
-	stmt3.setString(4,weather);
-	stmt3.setString(5,content);
-	System.out.println(stmt3);
+	String sql = "INSERT INTO lunch(lunch_date, menu, update_date, create_date) VALUES(?, ?, NOW(), NOW())";
+	PreparedStatement stmt = null;
+	ResultSet rs = null; 
+	stmt = conn.prepareStatement(sql); // 추가할 쿼리문 불러오기
+	stmt.setString(1,lunchDate);
+	stmt.setString(2,menu);
+	System.out.println(stmt);
 	
-	int row = stmt3.executeUpdate();
+	int row = stmt.executeUpdate();
 	if(row == 1) {
 		System.out.println("입력성공");
 	
@@ -68,7 +62,7 @@
 	}
 	
 	// 3. 목록(diary.jsp)을 재요청(redirect)하게 된다
-	response.sendRedirect("/diary/diary.jsp");
+	response.sendRedirect("/diary/lunch.jsp");
 	//  else밖에 redirect를 한번 더 보낼 시 , 이중으로 redirect가 계속 진행되니 오류가 남 
 	
 %>
