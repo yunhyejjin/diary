@@ -3,10 +3,10 @@
 <%@ page import= "java.net.*"%> 
 <%@ page import = "java.util.*" %>
 <%
-	// 로그인(인증) 분기
+	// 0. 로그인(인증) 분기
 	// **diary.login.my_session => 'ON' => redirect("diary.jsp") -- my_session이 ON면 ("diary.jsp")으로 재요청
 	// diary.login.my_session => 'OFF' => redirect("loginForm.jsp")
-	
+	/*
 	String sql1 = "select my_session mySession from login"; // login테이블로부터 my_session을 가져올건데 별칭이 mySession인 것으로 바꿔서 가져오겟다!!
 	
 	Class.forName("org.mariadb.jdbc.Driver");
@@ -37,7 +37,21 @@
 	 	
 		return; //코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return사용(진행이 필요없다 싶을 때)
 	}
-	
+	*/
+%>
+
+<%
+	//0. 로그인(인증) 분기
+		String loginMember = (String)(session.getAttribute("loginMember"));
+		if(loginMember == null) { // null값이면 로그아웃상태이니까 
+			String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
+			response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+			return;
+		}
+
+%>
+
+<%	
 	// 1. 입력값 요청 분석
 	// 받으려는 달력의 년과 월값을 넘겨 받는다
 	String targetYear = request.getParameter("targetYear");
@@ -89,16 +103,20 @@
 	*/
 	
 	String sql2 = "SELECT diary_date diaryDate, day(diary_date) day, feeling, left(title,5) title FROM diary WHERE YEAR(diary_date)= ? AND MONTH(diary_date)= ?";
+	
+	Class.forName("org.mariadb.jdbc.Driver");
+	Connection conn = null;
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
+	
+	conn = DriverManager.getConnection( // DB접속
+			"jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 	stmt2 = conn.prepareStatement(sql2); 
 	stmt2.setInt(1,tYear);
 	stmt2.setInt(2,tMonth+1); // 0부터 시작하기 때문에 생각한 값보다 1적게 나옴 ex)3월을 생각했지만 2월이 나오는?
 	System.out.println("stmt2: " + stmt2);
 	
 	rs2 = stmt2.executeQuery(); // 쿼리문
-	
-	
 %>
 <!DOCTYPE html>
 <html>

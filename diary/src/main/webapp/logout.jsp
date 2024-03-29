@@ -3,8 +3,9 @@
 <%@ page import= "java.net.*"%> 
 <%
 	// ON -->OFF로 변경
-	// 로그인(인증) 분기
+	// 로그인(인증) 분기 DB사용
 	
+	/*
 	String sql1 = "select my_session mySession from login"; // login테이블로부터 my_session을 가져올건데 별칭이 mySession인 것으로 바꿔서 가져오겟다!!
 	
 	Class.forName("org.mariadb.jdbc.Driver");
@@ -39,5 +40,10 @@
 	System.out.println("row : " + row);
 	
 	response.sendRedirect("/diary/loginForm.jsp");
-
+	*/
+	
+	// session.removeAttibute("loginMember"); 세션정보 속성 삭제
+	
+	session.invalidate(); //  세션 공간 모두 초기화 (포맷)
+	response.sendRedirect("/diary/loginForm.jsp");
 %>

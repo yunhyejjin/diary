@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%
-	// 로그인(인증) 분기(확인)
+	// 0.로그인(인증) 분기(확인) 7~30 DB사용 
 	// diary.login.my_session => 'ON' => redirect("diary.jsp") 
 	// **diary.login.my_session => 'OFF' => redirect("loginForm.jsp") -- my_session이 OFF면 ("loginForm.jsp")으로 재요청
-	
+	/* 
 	String sql1 = "select my_session mySession from login"; // login테이블로부터 my_session을 가져올건데 별칭이 mySession인 것으로 바꿔서 가져오겟다!!
 	
 	Class.forName("org.mariadb.jdbc.Driver");
@@ -28,16 +28,29 @@
 		response.sendRedirect("/diary/diary.jsp"); // get방식
 		return; //코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return사용(진행이 필요없다 싶을 때)
 	}
-	
+	*/ 
 	// mySession >> 'ON'상태면 diary.jsp 로 바로 넘어감
 	// mySession >> 'OFF'상태면 loginForm.jsp 
 	// 'OFF'상태에서 로그인 시도시 errMsg 확인
 	
+	// 0-1.) 로그인(이른) 분기 session 사용으로 변경
+	// 로그인 성공시 세션에 로그인멤버라는 변수를 만들고 값으로 로그인 아이디를 저장
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	// 사용되는 Session API
+	// session.getAttribute(String) :  변수이름으로 변수값을 반환하는 메서드
+	// session.getAttribute() 는 찾는 변수가 없으면 null값을 반환한다.
+	// 로그인을 한 적이 없으면 null(초기화값)로그아웃상태, null이 안나오면 로그인 상태
+	System.out.println("loginMember(session) : " + loginMember);
+	
+	// loginForm페이지는 로그아웃상태에서만 출력되는 페이지 /diary.jsp는 로그인상태만 가능
+	if(loginMember != null) {
+		response.sendRedirect("/diary/diary.jsp");
+		return; //코드 진행을 끝내는 문법 ex) 메서드 끝낼때 return사용(진행이 필요없다 싶을 때)
+	}
 	
 	// 1. 요청값 분석
 	String errMsg = request.getParameter("errMsg");
 
-	
 %>
 <!DOCTYPE html>
 <html>
