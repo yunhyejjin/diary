@@ -75,10 +75,10 @@
 
 <%
 	// 점심투표(가능한날짜) 할 데이터 가져오기
-
+	String lunchDate = request.getParameter("lunchDate");
 	String menu = request.getParameter("menu");
 	
-	System.out.println("votelunchDate :  "  + checkDate);
+	System.out.println("votelunchDate :  "  + lunchDate);
 	System.out.println("votemenu :  "  + menu);
 	/*
 		SELECT lunch_date, menu FROM lunch 
@@ -117,36 +117,38 @@
 	</form> 
 	<hr>
 	
-	<form method="post" action="/diary/lunchResult.jsp">
-		<div>Date : 					
-			<%
-				if(ck.equals("T")) { //checkDate equals T면 출력 
-			%>
+										
+	<form method="post" action="/diary/lunchVoteAction.jsp">
+			<div>Date : 					
+				<%
+					if(ck.equals("T")) { //checkDate equals T면 출력 
+				%>
+									
+					<input value="<%=checkDate%>" type="text" name="lunchDate" readonly="readonly">
+					
+				<%		
+					} else {
+				%>
 								
-				<input value="<%=checkDate%>" type="text" name="lunchDate" readonly="readonly">
+						<input value="" type="text" name="lunchDate" readonly="readonly">
 				
-			<%		
-				} else {
-			%>
-							
-					<input value="" type="text" name="lunchDate" readonly="readonly">
+				<%		
+					}
+				%>
+			</div>
 			
-			<%		
-				}
-			%>
-		</div>
+			<div><input type="radio" name="menu" value="한식" >한식</div>
+			<div><input type="radio" name="menu" value="양식" >양식</div>
+			<div><input type="radio" name="menu" value="일식" >일식</div>
+			<div><input type="radio" name="menu" value="중식" >중식</div>
+			<div><input type="radio" name="menu" value="기타" >기타</div>		
 		
-		<div><input type="radio" name="menu" value="한식" >한식</div>
-		<div><input type="radio" name="menu" value="양식" >양식</div>
-		<div><input type="radio" name="menu" value="일식" >일식</div>
-		<div><input type="radio" name="menu" value="중식" >중식</div>
-		<div><input type="radio" name="menu" value="기타" >기타</div>		
+			<hr>
 	
-		<hr>
-		
+	
+	
 		<div>
 			<button type="submit">선택하기</button>
-
 		</div>
 	</form>
 

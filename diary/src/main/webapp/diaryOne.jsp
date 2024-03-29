@@ -181,6 +181,43 @@
 				</div>
 		
 		</div>
-
+		<br>
+		<!-- 댓글 추가 폼 -->
+		<div>
+			<form method="post" action="/diary/addCommentAction.jsp">
+				<input type="hidden" name="diaryDate" value="<%=diaryDate%>">
+				<textarea row="2" cols="50" name="memo"></textarea>
+				<button type="submit">댓글입력</button>
+			</form>
+		</div>
+		<br>
+		<!-- 댓글 리스트 -->
+		<%
+			String sql2 = "select comment_no commentno, memo, create_date createDate from comment where diary_date =?";
+			
+			PreparedStatement stmt2 = null;
+			ResultSet rs2 = null;
+			stmt2 = conn.prepareStatement(sql2); 
+			stmt2.setString(1,diaryDate);
+			System.out.println("stmt2: " + stmt2);
+			
+			rs2 = stmt2.executeQuery();
+		%>	
+		
+		<table border="1">	
+		
+		<% 	
+			while(rs2.next()) {
+		%>
+				<tr>
+					<td><%=rs2.getString("memo")%></td>
+					<td><%=rs2.getString("createDate")%></td>
+					<td><a href='/diary/deleteComment.jsp?commentno=<%=rs2.getInt("commentno")%>&diaryDate=<%=diaryDate%>'>삭제</a></td>
+				</tr>
+		<% 		
+			}
+		%>
+		
+		</table>
 </body>
 </html>

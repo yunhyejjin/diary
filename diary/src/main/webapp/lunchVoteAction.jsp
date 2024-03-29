@@ -61,15 +61,24 @@
 	Class.forName("org.mariadb.jdbc.Driver");
 	Connection conn = null;
 	PreparedStatement stmt = null;
-	ResultSet rs = null; 
 	
 	conn = DriverManager.getConnection( // DB접속
 			"jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 	stmt = conn.prepareStatement(sql); // 추가할 쿼리문 불러오기
 	stmt.setString(1,lunchDate);
 	stmt.setString(2,menu);
+	
 	System.out.println(stmt);
 	
+	int row = 0;
+	row = stmt.executeUpdate();
 	
+	if(row == 1) {
+		System.out.println("입력성공");
+	
+	} else {
+		System.out.println("입력실패");
+	
+	}
 	
 %>

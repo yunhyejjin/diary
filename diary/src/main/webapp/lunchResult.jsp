@@ -90,6 +90,7 @@
 			<button type="submit" class="btn btn-outline-secondary">
 				<a href="/diary/deleteLunchVoteAction.jsp">삭제</a>
 			</button> 
+			<button type="submit">다시고르기</button>
 		</div>
 		
 </body>

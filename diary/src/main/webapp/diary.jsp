@@ -233,6 +233,7 @@
 	<div class="container mt-3 fir" >
 		<a href="/diary/diary.jsp">&#x1F5D3;</a>
 		<a href="/diary/diaryList.jsp">&#8801;</a>
+		<a href="/diary/lunchVoteForm.jsp">&#127860;</a>
 	</div>
 	
 	
