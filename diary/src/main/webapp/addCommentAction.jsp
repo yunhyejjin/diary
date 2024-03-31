@@ -16,7 +16,7 @@
 	String sql = "insert into comment(diary_date, memo, update_date, create_date) values(?, ?, now(), now())";
 	Class.forName("org.mariadb.jdbc.Driver");
 	Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
-	PreparedStatement stmt = conn.prepareStatement(sql);
+	PreparedStatement stmt = conn.prepareStatement(sql); //객체생성
 	stmt.setString(1, diaryDate);
 	stmt.setString(2, memo);
 	

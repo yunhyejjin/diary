@@ -70,9 +70,39 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<!-- Latest compiled and minified CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- google fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@400..700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+	
+	<style>
+		.fir {
+			 color:#6F6F6F;
+			 text-align: left;
+			 font-size: 30px;
+			 font-family: "Edu NSW ACT Foundation", cursive;
+		}
+		
+		a:link {color:#6F6F6F; text-decoration: none;}
+		a:active {color:#6F6F6F; text-decoration: none;}
+		a:visited {color:#6F6F6F; text-decoration: none;}
+		a:hover {color:#FFFFFF; text-decoration: none;}
+	</style>
 </head>
-<body>
-	<h1>statsLunch</h1>
+<body style="background-image:url(/diary/img/www.jpg); background-size: cover">
+		
+		<div class="container mt-3 fir" >
+			<a href="/diary/diary.jsp">&#x1F5D3;</a>
+			<a href="/diary/lunchVoteForm.jsp">&#127860;</a>
+		</div>
+		
+		<h1>내가 선호하는 음식은?</h1>
 	
 		<%
 			double maxHeight = 500;

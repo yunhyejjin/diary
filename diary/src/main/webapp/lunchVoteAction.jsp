@@ -56,29 +56,31 @@
 		lunch_date, menu, update_date, create_date
 		) VALUES(?, ?, NOW(), NOW())"
 	*/
-	String sql = "INSERT INTO lunch(lunch_date, menu, update_date, create_date) VALUES(?, ?, NOW(), NOW())";
+	String sql = "select * from lunch";
 	
 	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	PreparedStatement stmt = null;
+	Connection conn = null; //DB접속
+	PreparedStatement stmt = null;// stmt객체생성
+	ResultSet rs = null; 
 	
 	conn = DriverManager.getConnection( // DB접속
 			"jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 	stmt = conn.prepareStatement(sql); // 추가할 쿼리문 불러오기
-	stmt.setString(1,lunchDate);
-	stmt.setString(2,menu);
-	
-	System.out.println(stmt);
-	
-	int row = 0;
-	row = stmt.executeUpdate();
-	
-	if(row == 1) {
-		System.out.println("입력성공");
-	
-	} else {
-		System.out.println("입력실패");
-	
-	}
+	rs = stmt.executeQuery(); //조회한 결과물을 ResultSet에 rs에 저장
 	
 %>
+
+<%		
+	if(rs.next()) {//next()다음 행으로 변화
+		System.out.println("입력 성공");
+		
+		response.sendRedirect("/diary/lunch.jsp");
+
+		
+	} else {
+		System.out.println("입력 실패");
+		response.sendRedirect("/diary/lunchResult.jsp");
+	}	
+	
+%>
+

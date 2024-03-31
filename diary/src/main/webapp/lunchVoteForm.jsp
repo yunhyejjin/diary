@@ -101,9 +101,23 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- google fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@400..700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+	
 </head>
-<body>
+<body style="background-image:url(/diary/img/www.jpg); background-size: cover">
 
+	<div class="container mt-3 fir" >
+		<a href="/diary/diary.jsp">&#x1F5D3;</a>
+	</div>
+	
 	<h1>점심메뉴투표하기</h1>
 	
 	<form method="post" action="/diary/voteCheckAction.jsp">
@@ -112,7 +126,7 @@
 		</div>
 			<br>
 		<div>
-			<button type= "submit">투표가능확인</button>
+			<button type= "submit" class="btn btn-outline-danger btn-md">투표가능확인</button>
 		</div>
 	</form> 
 	<hr>
@@ -148,7 +162,7 @@
 	
 	
 		<div>
-			<button type="submit">선택하기</button>
+			<button type="submit" class="btn btn-outline-secondary btn-md">선택하기</button>
 		</div>
 	</form>
 
