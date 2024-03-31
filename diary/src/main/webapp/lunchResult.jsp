@@ -50,10 +50,12 @@
 	
 	System.out.println("rs.lunchDate : " + lunchDate);
 	System.out.println("rs.menu : " + menu);
-	/*
-		SELECT lunch_date, menu FROM lunch 
+	/* 
+		INSERT INTO lunch(
+		lunch_date, menu, update_date, create_date
+		) VALUES(?, ?, NOW(), NOW())"
 	*/
-	String sql ="SELECT lunch_date lunchdate, menu FROM lunch ";
+	String sql ="INSERT INTO lunch(lunch_date, menu, update_date, create_date) VALUES(?, ?, NOW(), NOW())";
 	Class.forName("org.mariadb.jdbc.Driver");
 	Connection conn = null;
 	PreparedStatement stmt = null;
@@ -62,27 +64,40 @@
 	conn = DriverManager.getConnection( // DB접속
 			"jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 	stmt = conn.prepareStatement(sql);
-	rs = stmt.executeQuery();
+	stmt.setString(1,lunchDate);
+	stmt.setString(2,menu);
+	
+	
+	int row = 0;
+	row = stmt.executeUpdate();
+	if(row == 1) {
+		System.out.println("입력성공");
+	
+	} else {
+		System.out.println("입력실패");
+	
+	}
 	
 %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title></title>
 </head>
 <body>
 	
 	<h1>오늘 점심은?????</h1>
-	
+		<form method="post" action="/diary/lunchVoteAction.jsp"></form>
 		<div>
-			&#9956;<input value="<%=lunchDate%>" type="text" name="lunchDate" readonly="readonly">
+			<%=lunchDate%>
 		</div>
 		
 		<div>
-		
-			
-			&#9956;<input value="<%=menu%>" type="text" name="menu" readonly="readonly">
+
+			<%=menu%>
 		
 		</div>
 		<br>			
@@ -90,8 +105,8 @@
 			<button type="submit" class="btn btn-outline-secondary">
 				<a href="/diary/deleteLunchVoteAction.jsp">삭제</a>
 			</button> 
-			<button type="submit">다시고르기</button>
+			<button type="submit"><a href="/diary/lunch.jsp">전체통계보기</a></button>
 		</div>
-		
+		</form>
 </body>
 </html>

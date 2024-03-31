@@ -118,7 +118,7 @@
 	<hr>
 	
 										
-	<form method="post" action="/diary/lunchVoteAction.jsp">
+	<form method="post" action="/diary/lunchResult.jsp">
 			<div>Date : 					
 				<%
 					if(ck.equals("T")) { //checkDate equals T면 출력 
